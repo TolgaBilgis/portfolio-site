@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tolga Bilgis is a Clemson Computer Engineering student working in Linux systems, cloud infrastructure, and reliability. Explore his experience at LANL, cluster administration, and systems projects.">
+    <meta name="theme-color" content="#111b20">
+    <title>Tolga Bilgis | Systems & Infrastructure</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="#" aria-label="Tolga Bilgis, home"><span class="brand-mark" aria-hidden="true">tb<span>.</span></span><span>Tolga Bilgis</span></a>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" hidden>Menu <span aria-hidden="true">+</span></button>
+        <nav id="navigation" class="navigation" aria-label="Main navigation">
+          <a href="#work">Projects</a><a href="#experience">Experience</a><a href="#about">About</a>
+          <a class="nav-resume" href="resume.html">Résumé <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero container" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="small-square" aria-hidden="true"></span> SYSTEMS / CLOUD / INFRASTRUCTURE</div>
+          <h1 id="hero-title">From the metal.<br>To the <span class="serif-accent">cloud.</span></h1>
+          <p class="hero-intro">I’m Tolga, a Computer Engineering student at Clemson. I build and operate Linux systems, automate infrastructure, and explore what makes distributed systems reliable.</p>
+          <p class="hero-context">Previously at Los Alamos National Laboratory.<br>Currently administering Clemson’s student HPC cluster.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#work">Explore my work <span aria-hidden="true">↗</span></a><a class="text-link" href="resume.html">View résumé <span aria-hidden="true">↗</span></a></div>
+          <div class="availability"><span class="availability-dot" aria-hidden="true"></span> Seeking Summer 2027 internships <span class="availability-place">/ Clemson, SC</span></div>
+        </div>
+
+        <div class="system-illustration" aria-label="Homelab architecture: one control-plane node and two workers, connected by a Gigabit Ethernet switch. Static illustration, not live telemetry.">
+          <div class="illustration-heading"><span class="mono">FIELD NOTES / 001</span><span class="outline-tag">PERSONAL HOMELAB</span></div>
+          <div class="schematic">
+            <div class="schematic-label">DESIRED STATE <span aria-hidden="true">↓</span></div>
+            <div class="control-node"><span class="node-icon" aria-hidden="true">▤</span><div><span class="node-id">node01</span><span class="node-role">CONTROL PLANE</span></div><span class="node-number">01</span></div>
+            <div class="wire wire-top" aria-hidden="true"></div>
+            <div class="network-switch"><span class="switch-ports" aria-hidden="true">▪ ▪ ▪ ▪ ▪ ▪</span><span>GIGABIT ETHERNET</span></div>
+            <div class="wire-split" aria-hidden="true"><span></span><span></span></div>
+            <div class="worker-row">
+              <div class="worker-node"><div class="worker-top"><span class="node-icon" aria-hidden="true">▤</span><span class="node-number">02</span></div><span class="node-id">node02</span><span class="node-role">WORKER</span></div>
+              <div class="worker-node"><div class="worker-top"><span class="node-icon" aria-hidden="true">▤</span><span class="node-number">03</span></div><span class="node-id">node03</span><span class="node-role">WORKER</span></div>
+            </div>
+          </div>
+          <div class="illustration-footer"><div><span class="diagram-number">03</span><span>PHYSICAL NODES</span></div><div><span class="diagram-number">01</span><span>LEARNING LAB</span></div><a href="homelab.html" aria-label="Read about the homelab architecture">↗</a></div>
+          <div class="diagram-caption">Architecture sketch · Ubuntu / Kubernetes / Ansible</div>
+        </div>
+      </section>
+
+      <div class="credentials-strip"><div class="container credentials-inner"><span class="mono">EXPERIENCE ACROSS THE STACK</span><span>Los Alamos National Laboratory</span><span>Clemson University</span><span>Student Cluster Competition</span></div></div>
+
+      <section id="work" class="section container" aria-labelledby="work-title">
+        <div class="section-heading"><div><div class="eyebrow muted">01 / SELECTED WORK</div><h2 id="work-title">Built. Tested. <span class="serif-accent">Understood.</span></h2></div><a class="text-link" href="https://github.com/TolgaBilgis">More on GitHub <span aria-hidden="true">↗</span></a></div>
+        <article class="featured-project">
+          <div class="project-art" aria-hidden="true">
+            <div class="art-topline"><span>LAB_001</span><span>BARE METAL</span></div>
+            <div class="server-stack"><div class="server-unit"><span class="server-slots"></span><span class="server-name">01 / CONTROL</span><i></i></div><div class="server-unit"><span class="server-slots"></span><span class="server-name">02 / WORKER</span><i></i></div><div class="server-unit"><span class="server-slots"></span><span class="server-name">03 / WORKER</span><i></i></div></div>
+            <div class="art-bottomline">LINUX → CONTAINERS → ORCHESTRATION</div>
+          </div>
+          <div class="featured-content"><div class="project-category">INFRASTRUCTURE & RELIABILITY <span class="subtle-tag">ONGOING</span></div><h3>Small footprint.<br>Real infrastructure.</h3><p>A three-node Kubernetes homelab built on Lenovo mini PCs. Ansible manages the hosts; Prometheus and Grafana provide observability. Controlled failures expose the limits of scheduling and local storage.</p><ul class="tag-list" aria-label="Homelab technologies"><li>Kubernetes</li><li>Ansible</li><li>Linux</li><li>Prometheus</li><li>Grafana</li></ul><a class="text-link" href="homelab.html">Inside the homelab <span aria-hidden="true">↗</span></a></div>
+        </article>
+        <div class="project-grid">
+          <article class="project-card"><div class="card-top"><span class="project-symbol" aria-hidden="true">↔</span><span class="mono muted">02 / SYSTEMS PROGRAMMING</span></div><h3>NetProbe</h3><p>A TCP benchmarking tool written in C. Measures round-trip latency and sending throughput, with percentile reporting and socket I/O that handles partial transfers.</p><ul class="tag-list" aria-label="NetProbe technologies"><li>C</li><li>POSIX sockets</li><li>Linux</li></ul><a class="text-link" href="https://github.com/TolgaBilgis/NetProbe">Explore the source <span aria-hidden="true">↗</span></a></article>
+          <article class="project-card"><div class="card-top"><span class="project-symbol" aria-hidden="true">⌘</span><span class="mono muted">03 / DISTRIBUTED AI</span></div><h3>AI at the edge</h3><p>A local inference pipeline split across two NVIDIA Jetson devices, connecting object detection, facial recognition, and web alerts over Ethernet.</p><p class="award"><span aria-hidden="true">↗</span> CUHackit 2026 · 2nd, Best Use of Hardware</p><ul class="tag-list" aria-label="Edge AI technologies"><li>Python</li><li>Jetson</li><li>YOLO</li><li>Containers</li></ul><a class="text-link" href="https://github.com/coatlesss/Edge-AI-Parallel-Jetson-Surveillance-System">Explore the source <span aria-hidden="true">↗</span></a></article>
+        </div>
+        <a class="other-project" href="https://github.com/TolgaBilgis/term3d"><span class="mono muted">ALSO ON MY WORKBENCH</span><span>term3d <span class="muted">/ A terminal 3D rendering engine in C</span></span><span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section id="experience" class="experience-section section" aria-labelledby="experience-title"><div class="container">
+        <div class="section-heading"><div><div class="eyebrow muted">02 / EXPERIENCE</div><h2 id="experience-title">Systems in the <span class="serif-accent">real world.</span></h2></div><span class="section-note">From research infrastructure<br>to student cluster operations.</span></div>
+        <article class="experience-row"><div class="experience-meta"><span class="mono">MAY – AUG 2026</span><span>Los Alamos, NM</span></div><div class="experience-body"><div class="role-heading"><div><h3>Los Alamos National Laboratory</h3><p class="role">HPC Intern · AI Infrastructure</p></div><span class="experience-index">01</span></div><p>Automated containerized Linux/HPC infrastructure for the CIRCE AI platform using Ansible, GitLab CI/CD, Slurm, and Podman. Benchmarked retrieval backends to inform the design of an HPC-hosted RAG system.</p><div class="evidence-grid"><div><strong>5</strong><span>vector backends evaluated</span></div><div><strong>2.7M</strong><span>4,096-dimensional vectors</span></div><div><strong>~20×</strong><span>throughput vs. the existing setup¹</span></div></div><p class="evidence-note">¹ Identified a higher-throughput backend in the evaluated retrieval workload. Results are specific to that benchmark.</p></div></article>
+        <article class="experience-row"><div class="experience-meta"><span class="mono">DEC 2024 – PRESENT</span><span>Clemson, SC</span></div><div class="experience-body"><div class="role-heading"><div><h3>Clemson University</h3><p class="role">HPC System Administrator</p></div><span class="experience-index">02</span></div><p>Administer Clemson’s Rocky Linux student HPC cluster, running distributed workloads and tuning performance with Slurm, MPI, HPL, and HPL-MxP. Worked with a heterogeneous cluster incorporating NVIDIA A100 GPUs.</p><p>Served as system administrator at SCC25 and am returning for SCC26. Also co-built a 16-node Raspberry Pi cluster for student competition work.</p><ul class="tag-list"><li>Rocky Linux</li><li>Slurm</li><li>MPI</li><li>Performance tuning</li></ul></div></article>
+        <div class="earlier-roles"><article><span class="mono muted">JAN 2024 – JAN 2026</span><h3>Outlier AI</h3><p class="role">AI Coding / Math Expert</p><p>Wrote, tested, and evaluated programming and mathematical solutions across C++, Python, Java, Kotlin, and JavaScript.</p></article><article><span class="mono muted">AUG – DEC 2024</span><h3>Clemson University</h3><p class="role">Undergraduate Robotics Researcher</p><p>Integrated robotic sensors with Python and C++ and built real-time telemetry for a digital twin.</p></article></div>
+      </div></section>
+
+      <section id="about" class="section container about-section" aria-labelledby="about-title"><div class="about-copy"><div class="eyebrow muted">03 / THE PERSON BEHIND THE TERMINAL</div><h2 id="about-title">Curious about<br>what’s <span class="serif-accent">underneath.</span></h2><p>I like work where software meets the machine: understanding a slow network path, making a cluster reproducible, or finding out what actually happens when a node goes offline.</p><p>My focus spans systems, cloud, SRE, and infrastructure engineering. HPC has given me hands-on experience with the Linux, networking, and performance problems that connect those fields.</p><div class="education"><span class="education-mark" aria-hidden="true">C</span><div><strong>Clemson University</strong><span>B.S. Computer Engineering · Mathematical Sciences minor</span><span>Expected May 2028 · GPA 3.9 / 4.0</span></div></div></div><div class="skills"><h3 class="mono muted">TOOLS I WORK WITH</h3><div class="skill-group"><h4>Systems & networking</h4><p>Linux · Rocky Linux · systemd · TCP/IP · POSIX sockets · NFS · InfiniBand / RDMA</p></div><div class="skill-group"><h4>Infrastructure & delivery</h4><p>Ansible · Kubernetes · Docker · Podman · GitHub Actions · GitLab CI/CD · AWS · Terraform</p></div><div class="skill-group"><h4>Observability & performance</h4><p>Prometheus · Grafana · Slurm · MPI · OpenMP · HPL / HPL-MxP · perf</p></div><div class="skill-group"><h4>Languages</h4><p>C · C++ · Python · Bash<br><span class="muted">Also: Java, JavaScript, MATLAB, Lua, SQL</span></p></div><p class="learning-note"><span aria-hidden="true">↳</span> Currently studying for AWS Solutions Architect – Associate.</p></div></section>
+
+      <section id="contact" class="contact-section" aria-labelledby="contact-title"><div class="container contact-inner"><div><div class="eyebrow">SUMMER 2027 / OPEN TO INTERNSHIPS</div><h2 id="contact-title">Let’s build something<br><span class="serif-accent">that matters.</span></h2><p>Systems, infrastructure, cloud, and reliability engineering.</p></div><div class="contact-links"><a href="mailto:tolgabwork@gmail.com">tolgabwork@gmail.com <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/tolgabilgis">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/TolgaBilgis">GitHub <span aria-hidden="true">↗</span></a></div></div></section>
+    </main>
+    <footer class="site-footer container"><a class="wordmark" href="#"><span class="brand-mark" aria-hidden="true">tb<span>.</span></span><span>© <span data-year>2026</span> Tolga Bilgis</span></a><a class="hosting-link" href="homelab.html"><span class="small-square" aria-hidden="true"></span> Built for my Kubernetes homelab <span aria-hidden="true">↗</span></a><a class="back-to-top" href="#">Back to top ↑</a></footer>
+  </body>
+</html>

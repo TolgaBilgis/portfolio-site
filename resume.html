@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tolga Bilgis's résumé: systems and infrastructure experience at Los Alamos National Laboratory and Clemson University, plus Kubernetes and networking projects.">
+    <title>Résumé | Tolga Bilgis</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="resume.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="resume-toolbar"><a href="index.html">← Portfolio</a><span>Public résumé</span><div class="resume-actions"><a class="resume-download" href="Tolga-Bilgis-Resume.pdf" download>Download PDF ↓</a><button type="button" data-print>Print ↗</button></div></div>
+    <main class="resume">
+      <header><h1>Tolga Bilgis</h1><p class="headline">Systems · Cloud · Infrastructure Engineering</p><p class="contact">Clemson, SC · <a href="mailto:tolgabwork@gmail.com">tolgabwork@gmail.com</a><br><a href="https://www.linkedin.com/in/tolgabilgis">linkedin.com/in/tolgabilgis</a> · <a href="https://github.com/TolgaBilgis">github.com/TolgaBilgis</a></p></header>
+      <section><h2>Education</h2><div class="entry-title"><h3>Clemson University</h3><span>Expected May 2028</span></div><p>B.S. Computer Engineering · Minor in Mathematical Sciences · GPA: 3.9 / 4.0</p></section>
+      <section><h2>Technical Skills</h2><p><strong>Languages:</strong> C, C++, Python, Bash, Java, JavaScript, MATLAB, Lua, SQL</p><p><strong>Systems:</strong> Linux, Rocky Linux, systemd, TCP/IP, POSIX sockets, NFS, InfiniBand/RDMA, x86/ARM</p><p><strong>Infrastructure:</strong> Ansible, Kubernetes, Docker, Podman, AWS, Terraform, cloud-init, GitHub Actions, GitLab CI/CD, Prometheus, Grafana</p><p><strong>HPC / Performance:</strong> Slurm, MPI, OpenMP, Spack, HPL/HPL-MxP, perf, xCAT, performance benchmarking</p></section>
+      <section><h2>Experience</h2>
+        <article><div class="entry-title"><h3>Los Alamos National Laboratory</h3><span>May – Aug 2026</span></div><p class="role">HPC Intern, AI Infrastructure</p><ul><li>Automated containerized Linux/HPC infrastructure for the CIRCE AI platform with Ansible, GitLab CI/CD, Slurm, and Podman.</li><li>Benchmarked five vector database backends using 2.7 million 4,096-dimensional vectors, evaluating throughput, latency, scalability, and resource use.</li><li>Identified a retrieval backend delivering roughly 20× the existing setup’s throughput in the evaluated workload for an HPC-hosted RAG platform using a 2 TB arXiv corpus.</li></ul></article>
+        <article><div class="entry-title"><h3>Clemson University</h3><span>Dec 2024 – Present</span></div><p class="role">HPC System Administrator</p><ul><li>Administer the Rocky Linux student HPC cluster; configure distributed workloads and tune performance using Slurm, MPI, HPL, and HPL-MxP.</li><li>Co-built and performance-tuned a heterogeneous cluster with NVIDIA A100 GPUs. Served as system administrator at SCC25; returning for SCC26.</li><li>Co-built a 16-node Raspberry Pi cluster for student cluster competition work.</li></ul></article>
+        <article><div class="entry-title"><h3>Outlier AI</h3><span>Jan 2024 – Jan 2026</span></div><p class="role">AI Coding / Math Expert</p><ul><li>Wrote, tested, reviewed, and refined programming and mathematical solutions in C++, Python, Java, Kotlin, and JavaScript.</li></ul></article>
+        <article><div class="entry-title"><h3>Clemson University</h3><span>Aug – Dec 2024</span></div><p class="role">Undergraduate Robotics Researcher</p><ul><li>Integrated sensors using Python and C++ and built real-time telemetry displaying a robotic vehicle’s speed, position, and sensor readings for a digital twin.</li></ul></article>
+      </section>
+      <section><h2>Selected Projects</h2>
+        <article><div class="entry-title"><h3>Linux & Kubernetes Homelab</h3><span>Linux · Kubernetes · Ansible</span></div><ul><li>Built a three-node Ubuntu Kubernetes cluster, automated host configuration with Ansible, and added GitHub Actions validation for Ansible.</li><li>Deployed Prometheus, Grafana, and local persistent storage; tested pod replacement and a worker failure that demonstrated node-local storage limits.</li></ul></article>
+        <article><div class="entry-title"><h3><a href="https://github.com/TolgaBilgis/NetProbe">NetProbe</a></h3><span>C · Linux · POSIX sockets</span></div><ul><li>Built a TCP client/server tool measuring round-trip latency and sending throughput, with configurable host, port, duration, and buffer size.</li><li>Implemented monotonic timing, min/average/max and p95/p99 reporting, and socket I/O handling partial transfers and interrupted calls.</li></ul></article>
+        <article><div class="entry-title"><h3><a href="https://github.com/coatlesss/Edge-AI-Parallel-Jetson-Surveillance-System">Distributed Edge AI</a></h3><span>Jetson · Python · YOLO</span></div><ul><li>Split detection, facial recognition, and web alerts across two NVIDIA Jetson devices with local inference; earned 2nd Place, Best Use of Hardware at CUHackit 2026.</li></ul></article>
+      </section>
+    </main>
+  </body>
+</html>
