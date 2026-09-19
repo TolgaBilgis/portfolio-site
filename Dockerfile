@@ -1,4 +1,4 @@
-FROM docker.io/library/nginx:stable-alpine
+FROM docker.io/nginxinc/nginx-unprivileged:stable-alpine
 
 COPY index.html /usr/share/nginx/html/
 COPY homelab.html /usr/share/nginx/html/
@@ -9,4 +9,4 @@ COPY script.js /usr/share/nginx/html/
 COPY favicon.svg /usr/share/nginx/html/
 COPY Tolga-Bilgis-Resume.pdf /usr/share/nginx/html/
 
-EXPOSE 80
+EXPOSE 8080
