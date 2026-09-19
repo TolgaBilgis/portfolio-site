@@ -1,0 +1,76 @@
+name: Container image
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: ghcr.io/tolgabilgis/portfolio-site
+
+concurrency:
+  group: container-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Build image
+        run: |
+          docker build \
+            --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
+            --tag "${IMAGE_NAME}:${GITHUB_SHA}" \
+            .
+
+      - name: Test image
+        run: |
+          set -euo pipefail
+
+          container_id=$(
+            docker run \
+              --detach \
+              --publish 127.0.0.1:8080:8080 \
+              "${IMAGE_NAME}:${GITHUB_SHA}"
+          )
+
+          trap 'docker rm --force "$container_id"' EXIT
+
+          for attempt in {1..10}; do
+            if curl --fail --silent http://127.0.0.1:8080/ >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl --fail --silent http://127.0.0.1:8080/ |
+            grep --fixed-strings '<title>Tolga Bilgis | Systems & Infrastructure</title>'
+
+          curl --fail --silent --output /dev/null \
+            http://127.0.0.1:8080/Tolga-Bilgis-Resume.pdf
+
+          test "$(docker exec "$container_id" id -u)" != "0"
+
+      - name: Sign in to GitHub Container Registry
+        if: github.event_name == 'push'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" |
+            docker login ghcr.io \
+              --username "${{ github.actor }}" \
+              --password-stdin
+
+      - name: Publish image
+        if: github.event_name == 'push'
+        run: |
+          docker push "${IMAGE_NAME}:${GITHUB_SHA}"
+          docker tag "${IMAGE_NAME}:${GITHUB_SHA}" "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:latest"
