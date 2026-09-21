@@ -29,6 +29,7 @@ jobs:
         run: |
           docker build \
             --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
+            --label "org.opencontainers.image.revision=${GITHUB_SHA}" \
             --tag "${IMAGE_NAME}:${GITHUB_SHA}" \
             .
 
@@ -74,3 +75,103 @@ jobs:
           docker push "${IMAGE_NAME}:${GITHUB_SHA}"
           docker tag "${IMAGE_NAME}:${GITHUB_SHA}" "${IMAGE_NAME}:latest"
           docker push "${IMAGE_NAME}:latest"
+
+      - name: Resolve published image digest
+        if: github.event_name == 'push'
+        id: image
+        run: |
+          set -euo pipefail
+
+          digest=$(
+            docker buildx imagetools inspect \
+              "${IMAGE_NAME}:${GITHUB_SHA}" \
+              --format '{{json .Manifest}}' |
+              jq --raw-output '.digest'
+          )
+
+          if [[ ! "$digest" =~ ^sha256:[a-f0-9]{64}$ ]]; then
+            echo "Unexpected image digest: $digest" >&2
+            exit 1
+          fi
+
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
+
+      - name: Check out homelab repository
+        if: github.event_name == 'push'
+        uses: actions/checkout@v7
+        with:
+          repository: TolgaBilgis/homelab
+          token: ${{ secrets.HOMELAB_REPO_TOKEN }}
+          path: homelab
+
+      - name: Update homelab image digest
+        if: github.event_name == 'push'
+        id: promotion
+        working-directory: homelab
+        env:
+          IMAGE_DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          set -euo pipefail
+
+          manifest=kubernetes/apps/portfolio-site.yml
+
+          sed --in-place --regexp-extended \
+            "s#(image: ${IMAGE_NAME}@)sha256:[a-f0-9]{64}#\1${IMAGE_DIGEST}#" \
+            "$manifest"
+
+          grep --fixed-strings \
+            "image: ${IMAGE_NAME}@${IMAGE_DIGEST}" \
+            "$manifest"
+
+          git diff --check
+
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push deployment branch
+        if: >-
+          github.event_name == 'push' &&
+          steps.promotion.outputs.changed == 'true'
+        working-directory: homelab
+        env:
+          DEPLOY_BRANCH: deploy/portfolio-${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --create "$DEPLOY_BRANCH"
+          git add kubernetes/apps/portfolio-site.yml
+          git commit \
+            --message "deploy: update portfolio image to ${GITHUB_SHA:0:12}"
+          git push --set-upstream origin "$DEPLOY_BRANCH"
+
+      - name: Open deployment pull request
+        if: >-
+          github.event_name == 'push' &&
+          steps.promotion.outputs.changed == 'true'
+        working-directory: homelab
+        env:
+          GH_TOKEN: ${{ secrets.HOMELAB_REPO_TOKEN }}
+          DEPLOY_BRANCH: deploy/portfolio-${{ github.sha }}
+          IMAGE_DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          set -euo pipefail
+
+          printf \
+            'Promotes portfolio commit %s.\n\nImage: %s@%s\n\nMerging this PR allows Argo CD to deploy the image.\n' \
+            "$GITHUB_SHA" \
+            "$IMAGE_NAME" \
+            "$IMAGE_DIGEST" \
+            > /tmp/portfolio-deployment-pr.md
+
+          gh pr create \
+            --repo TolgaBilgis/homelab \
+            --base main \
+            --head "$DEPLOY_BRANCH" \
+            --title "deploy: update portfolio image" \
+            --body-file /tmp/portfolio-deployment-pr.md
