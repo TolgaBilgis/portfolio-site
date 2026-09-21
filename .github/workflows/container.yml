@@ -175,3 +175,10 @@ jobs:
             --head "$DEPLOY_BRANCH" \
             --title "deploy: update portfolio image" \
             --body-file /tmp/portfolio-deployment-pr.md
+
+          gh pr merge \
+            --repo TolgaBilgis/homelab \
+            --auto \
+            --squash \
+            --delete-branch \
+            "$DEPLOY_BRANCH"
