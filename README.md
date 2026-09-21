@@ -10,44 +10,59 @@ GitHub Actions builds and tests the container, publishes it to GitHub Container 
 
 ## Delivery pipeline
 
+From a source-code push to a running release. Each color marks a different part of the system.
+
 ```mermaid
-flowchart TD
-    subgraph APP["Repository: portfolio-site"]
-        A["Push website changes to main"]
-        B["GitHub Actions: build Nginx image"]
-        C["Test homepage, resume PDF, and non-root user"]
-        D["Publish image and resolve digest"]
-        A --> B --> C --> D
+flowchart TB
+    subgraph SOURCE["01 · BUILD & TEST — portfolio-site"]
+        A(["Push to main"]) --> B["GitHub Actions<br/>Build Nginx container"]
+        B --> C["Smoke tests<br/>Homepage · Resume PDF · Non-root"]
     end
 
-    GHCR[("GitHub Container Registry")]
-    D --> GHCR
+    C -->|"tests pass"| D[("GHCR<br/>Immutable image digest")]
 
-    subgraph INFRA["Repository: homelab"]
-        F["Open PR updating portfolio image digest"]
-        G["Required CI checks: Ansible validation"]
-        H["Auto-merge into main"]
-        F --> G --> H
+    subgraph CONFIG["02 · REVIEW & PROMOTE — homelab"]
+        E["Deployment PR<br/>Update image digest"] --> F["Required CI checks<br/>Ansible validation"]
+        F --> G(["Auto-merge to main"])
     end
-    D --> F
+    D -->|"automated PR"| E
 
-    subgraph K8S["Homelab Kubernetes cluster"]
-        I["Argo CD watches main: kubernetes/apps"]
-        J["Apply Deployment and pull image by digest"]
-        K["Rolling update with readiness checks"]
-        P["Ready portfolio Pods: port 8080"]
-        T["cloudflared Pods"]
-        S["portfolio-site Service: port 80"]
-        I --> J --> K --> P
-        T --> S --> P
+    subgraph CLUSTER["03 · RECONCILE & DEPLOY — Kubernetes"]
+        H["Argo CD<br/>Watch main / kubernetes/apps"]
+        H --> I["Rolling update<br/>Readiness checks"]
+        I --> J(["Portfolio running<br/>2 replicas configured"])
     end
-    H --> I
-    GHCR --> J
+    G -->|"desired state"| H
+    D -.->|"nodes pull image by digest"| I
 
-    V["Visitor: https://tolgabilgis.com"]
-    CF["Cloudflare HTTPS"]
-    V --> CF
-    CF -->|"Encrypted tunnel"| T
+    classDef source fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:2px;
+    classDef registry fill:#fef3c7,stroke:#d97706,color:#451a03,stroke-width:2px;
+    classDef config fill:#ede9fe,stroke:#7c3aed,color:#2e1065,stroke-width:2px;
+    classDef runtime fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke-width:2px;
+    class A,B,C source;
+    class D registry;
+    class E,F,G config;
+    class H,I,J runtime;
+    style SOURCE fill:#eff6ff,stroke:#93c5fd,color:#172554
+    style CONFIG fill:#f5f3ff,stroke:#c4b5fd,color:#2e1065
+    style CLUSTER fill:#f0fdf4,stroke:#86efac,color:#14532d
 ```
 
-Argo CD watches the homelab repository, not the website source or the image registry. A merged image-digest change triggers deployment; visitor traffic reaches ready Pods through the tunnel and Kubernetes Service.
+Argo CD reads the homelab repository independently of the local checkout. It deploys the image digest recorded in Git once the deployment PR merges.
+
+### How visitors reach the site
+
+```mermaid
+flowchart LR
+    V(["Visitor"]) -->|"HTTPS"| C["Cloudflare<br/>tolgabilgis.com"]
+    C -->|"Encrypted tunnel"| T["cloudflared<br/>2 replicas configured"]
+    T --> S["Kubernetes Service<br/>portfolio-site:80"]
+    S --> P(["Ready portfolio Pods<br/>Nginx :8080"])
+
+    classDef edge fill:#ffedd5,stroke:#ea580c,color:#431407,stroke-width:2px;
+    classDef cluster fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke-width:2px;
+    classDef visitor fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:2px;
+    class V visitor;
+    class C edge;
+    class T,S,P cluster;
+```
