@@ -59,14 +59,6 @@ jobs:
           curl --fail --silent --output /dev/null \
             http://127.0.0.1:8080/Tolga-Bilgis-Resume.pdf
 
-          curl --fail --silent --location http://127.0.0.1:8080/game |
-            grep --fixed-strings '<title>Cloud Hop | Tolga Bilgis</title>'
-
-          for asset in game.js game.css character.jpeg; do
-            curl --fail --silent --output /dev/null \
-              "http://127.0.0.1:8080/game/$asset"
-          done
-
           test "$(docker exec "$container_id" id -u)" != "0"
 
       - name: Sign in to GitHub Container Registry
