@@ -4,6 +4,24 @@ My personal portfolio website, built with HTML, CSS, and JavaScript.
 
 **Live:** [tolgabilgis.com](https://tolgabilgis.com)
 
+## Cloud Hop
+
+Play at [tolgabilgis.com/game](https://tolgabilgis.com/game/). A standalone canvas
+platformer with three levels, double jumps, optional stars, checkpoints, touch
+controls, optional sound, and local personal bests. Move with arrows or A/D;
+jump with Space, W, or Up (press again for a double jump). P pauses and R
+restarts the current level. Island tops are one-way platforms.
+
+The portfolio only gains a navigation link. Game code, styles, and the supplied
+character photo live in `game/` and load only on the game page. No dependencies
+or external services are required. Serve this directory with any static server
+for local play, for example `python3 -m http.server 8000`.
+
+To remove the game, revert the commit titled `Add Cloud Hop platformer at /game`
+and push the revert to main. This restores the previous portfolio, container
+configuration, and checks through the same deployment pipeline without rewriting
+Git history. The original baseline is `93159e67f882049829e93c0cf5969db27411cbee`.
+
 Hosted on my three-node Kubernetes homelab, served by an unprivileged Nginx container and published through Cloudflare Tunnel with HTTPS.
 
 GitHub Actions builds and tests the container, publishes it to GitHub Container Registry, and opens a deployment PR in my [homelab repository](https://github.com/TolgaBilgis/homelab). After checks pass and the PR automatically merges, Argo CD deploys the image pinned by digest.
