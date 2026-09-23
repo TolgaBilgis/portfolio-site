@@ -8,7 +8,23 @@ Hosted on my three-node Kubernetes homelab, served by an unprivileged Nginx cont
 
 GitHub Actions builds and tests the container, publishes it to GitHub Container Registry, and opens a deployment PR in my [homelab repository](https://github.com/TolgaBilgis/homelab). After checks pass and the PR automatically merges, Argo CD deploys the image pinned by digest.
 
-## Delivery pipeline
+## Editing and previewing
+
+Run `python -m http.server 8080` from the repository and open `http://localhost:8080`.
+The site uses local fonts and plain HTML/CSS/JavaScript. `assets/homelab-rack.jpeg`
+is a web-sized copy of the lab photo from the homelab repository.
+
+Edit `resume.json` to update the resume, then run `python scripts/build_resume.py`
+with `reportlab` installed. This regenerates both `resume.html` and
+`Tolga-Bilgis-Resume.pdf` from the same content. Check that the PDF remains one
+page and inspect its rendered layout before committing both outputs.
+
+The site describes the completed HA, replicated storage, and restore work
+confirmed by Tolga in September 2026. The homelab repository's older README
+still lists those milestones as planned; its documentation needs a separate
+update with implementation details. No measured recovery time is claimed.
+
+## Delivery flow
 
 ```mermaid
 flowchart TB
