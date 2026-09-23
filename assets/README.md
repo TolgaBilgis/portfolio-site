@@ -2,6 +2,8 @@
 
 Used with Tolga's authorization for this portfolio:
 
+- `BenchmarkingAIVectorDatabasesForGenesisMission.pdf`: Tolga's supplied original research poster, unchanged. `lanl-research-poster.jpg` is a rendered preview of its single page.
+
 - `homelab-rack.jpeg`: Tolga's homelab repository, `docs/images/homelab-rack.jpeg`.
 - `sc25-team.jpg` and `sc25-at-work.jpg`: photos attached to Tolga's [SC25 post](https://www.linkedin.com/feed/update/urn:li:activity:7399615057598300161/).
 - `cuhackit-demo.jpg`: video preview from Tolga's [CUHackit demonstration](https://www.linkedin.com/feed/update/urn:li:activity:7438966141114314752/); the site links to the original video.
