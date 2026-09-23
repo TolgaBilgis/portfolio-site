@@ -14,10 +14,11 @@ Run `python -m http.server 8080` from the repository and open `http://localhost:
 The site uses local fonts and plain HTML/CSS/JavaScript. `assets/homelab-rack.jpeg`
 is a web-sized copy of the lab photo from the homelab repository.
 
-Edit `resume.json` to update the resume, then run `python scripts/build_resume.py`
-with `reportlab` installed. This regenerates both `resume.html` and
-`Tolga-Bilgis-Resume.pdf` from the same content. Check that the PDF remains one
-page and inspect its rendered layout before committing both outputs.
+`Tolga-Bilgis-Resume.pdf` is Tolga's original supplied `TolgaRESUME09_22.pdf`,
+copied without changes. Resume links open that PDF directly. `resume.html`
+provides a PDF viewer and download link for visitors using the old page URL.
+To update the resume, replace the PDF with a new file supplied by Tolga;
+do not regenerate or rewrite it.
 
 The site describes the completed HA, replicated storage, and restore work
 confirmed by Tolga in September 2026. The homelab repository's older README
