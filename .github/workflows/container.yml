@@ -40,6 +40,8 @@ jobs:
         run: |
           set -euo pipefail
 
+          docker run --rm "${IMAGE_NAME}:${GITHUB_SHA}" nginx -t
+
           container_id=$(
             docker run \
               --detach \
@@ -47,7 +49,7 @@ jobs:
               "${IMAGE_NAME}:${GITHUB_SHA}"
           )
 
-          trap 'docker rm --force "$container_id"' EXIT
+          trap 'docker logs "$container_id"; docker rm --force "$container_id"' EXIT
 
           for attempt in {1..10}; do
             if curl --fail --silent http://127.0.0.1:8080/ >/dev/null; then
