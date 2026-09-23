@@ -1,0 +1,4 @@
+:root{color-scheme:light;font-family:"Segoe UI",Arial,sans-serif;background:#f5f3ed;color:#242824}
+*{box-sizing:border-box}body{margin:0}a{color:inherit;text-underline-offset:4px}a:hover{color:#9d3f24}a:focus-visible{outline:2px solid #9d3f24;outline-offset:5px}
+.resume-toolbar{width:min(1100px,calc(100% - 40px));margin:24px auto;display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:14px}.resume-toolbar h1{font-size:18px;margin:0;font-weight:600}.resume-fallback{text-align:center;font-size:13px;margin:16px 20px}.resume-viewer{display:block;width:min(1100px,calc(100% - 40px));height:calc(100vh - 135px);min-height:500px;margin:0 auto 20px;border:1px solid #d1d4ca;background:white}
+@media(max-width:600px){.resume-toolbar{flex-wrap:wrap;gap:16px}.resume-toolbar h1{order:3;width:100%}.resume-viewer{width:100%;border-inline:0}}

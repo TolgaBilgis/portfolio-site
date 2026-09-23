@@ -20,6 +20,13 @@ provides a PDF viewer and download link for visitors using the old page URL.
 To update the resume, replace the PDF with a new file supplied by Tolga;
 do not regenerate or rewrite it.
 
+After changing CSS, JavaScript, or the supplied PDF, run
+`python scripts/version_assets.py` and commit the updated HTML and versioned
+files in `assets/`. CI checks that those URLs match their file contents.
+The PDF is copied byte-for-byte. Existing versioned assets are retained so
+older cached pages can still load them. Nginx requires revalidation for HTML
+and stable URLs, and allows immutable caching only for versioned assets.
+
 The site describes the completed HA, replicated storage, and restore work
 confirmed by Tolga in September 2026. The homelab repository's older README
 still lists those milestones as planned; its documentation needs a separate
