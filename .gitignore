@@ -1,2 +1,5 @@
 /.local/
 .DS_Store
+/tmp/
+/output/
+__pycache__/

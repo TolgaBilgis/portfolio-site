@@ -9,4 +9,6 @@ COPY script.js /usr/share/nginx/html/
 COPY favicon.svg /usr/share/nginx/html/
 COPY Tolga-Bilgis-Resume.pdf /usr/share/nginx/html/
 
+COPY assets/ /usr/share/nginx/html/assets/
+
 EXPOSE 8080
